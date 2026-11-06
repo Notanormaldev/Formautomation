@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modified Student Registration Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f6f9; }
+        .form-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 600px; margin: auto; }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 6px; }
+        input[type="text"], select { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        .radio-options { display: flex; gap: 15px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="form-card">
+        <h2>Modified Form (Changed IDs, Order, and CSS Classes)</h2>
+        <p>Notice: Last Name appears first, IDs are randomized, and styling differs completely from CloudQA.</p>
+        
+        <!-- TRICK: Last Name is FIRST to test order independence -->
+        <div class="form-group">
+            <label>Last Name / Family Name</label>
+            <input type="text" id="rnd_9812_ln" name="user_surname" placeholder="e.g. Patel" />
+        </div>
+
+        <!-- TARGET 1: First Name (Text box) -->
+        <div class="form-group">
+            <label>First Name (Given Name)</label>
+            <input type="text" id="rnd_4711_fn" name="user_forename" placeholder="Enter your first name here" />
+        </div>
+
+        <!-- TARGET 2: Gender (Radio buttons) -->
+        <div class="form-group">
+            <label>Select Gender:</label>
+            <div class="radio-options">
+                <label><input type="radio" id="gen_f" name="rnd_gender_group" value="female"> Female</label>
+                <label><input type="radio" id="gen_m" name="rnd_gender_group" value="male"> Male</label>
+                <label><input type="radio" id="gen_o" name="rnd_gender_group" value="other"> Other</label>
+            </div>
+        </div>
+
+        <!-- TARGET 3: State (Dropdown with Gujarat) -->
+        <div class="form-group">
+            <label>Select Your State / Province:</label>
+            <select id="rnd_state_select" name="region_province">
+                <option value="">-- Choose Province --</option>
+                <option value="MH">Maharashtra</option>
+                <option value="GJ">Gujarat</option>
+                <option value="DL">Delhi</option>
+                <option value="KA">Karnataka</option>
+            </select>
+        </div>
+
+        <button type="submit" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Submit Application</button>
+    </div>
+</body>
+</html>
+
