@@ -33,7 +33,7 @@ Traditional test scripts break as soon as element IDs, classes, XPaths, or field
    dotnet run
    ```
 
-2. **Custom / Modified Page Run** (Step 3 requirement):
+2. **Custom / Modified Page Run** (Configurable URL):
    ```powershell
    dotnet run -- https://app.cloudqa.io/home/AutomationPracticeForm
    ```
@@ -74,7 +74,7 @@ Each candidate is evaluated through positive weights and negative penalties:
   - `-100` for dropdowns representing "country" or "city".
   - Seamless fallback to custom div/button-based dropdown components.
 
-### 3. Step 5: Post-Action Verification & Assertion
+### 3. Post-Action Verification & Assertion
 - **Text box**: Reads `element.GetAttribute("value")` and asserts equality to `"Harsh"`.
 - **Radio button**: Reads `element.Selected` (and DOM property `checked`) to verify selection.
 - **Dropdown**: Inspects the currently selected `<option>` text and asserts `"Gujarat"`.

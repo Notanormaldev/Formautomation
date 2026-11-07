@@ -22,7 +22,7 @@ namespace FormAutomation
             Console.WriteLine(" Automatically adapts to: Single Forms, Multi-Forms, IFrames & Shadow DOMs               ");
             Console.WriteLine("=========================================================================================");
 
-            // Step 3: Configurable URL via command-line arguments
+            // Configurable URL via command-line arguments
             // Usage: dotnet run -- https://app.cloudqa.io/home/AutomationPracticeForm
             string targetUrl = DefaultUrl;
             bool headless = false;
@@ -548,16 +548,16 @@ namespace FormAutomation
 
         #endregion
 
-        #region Step 4: Core Functions & Step 5: Verification
+        #region Core Functions & Verification
 
         /// <summary>
-        /// Step 4 & 5: Resiliently finds and fills the First Name field, then verifies its value.
+        /// Resiliently finds and fills the First Name field, then verifies its value.
         /// </summary>
         public static bool FillFirstName(IWebDriver driver, string value)
         {
             Console.WriteLine($"---> [ACTION] FillFirstName(driver, \"{value}\")");
 
-            // Step 4: Retrieve all relevant input candidate elements
+            // Retrieve all relevant input candidate elements
             var allInputs = driver.FindElements(By.TagName("input"));
             var candidates = ExtractAllCandidatesFast(driver, "input", allInputs);
 
@@ -569,7 +569,7 @@ namespace FormAutomation
 
             Console.WriteLine($"     Discovered {textCandidates.Count} candidate input element(s). Calculating heuristic scores...");
 
-            // Step 4: Score each candidate element based on heuristic match criteria
+            // Score each candidate element based on heuristic match criteria
             foreach (var c in textCandidates)
             {
                 int score = 0;
@@ -608,7 +608,7 @@ namespace FormAutomation
                 c.Score = score;
             }
 
-            // Step 4: Select and use the candidate element with the highest score
+            // Select and use the candidate element with the highest score
             var bestCandidate = textCandidates.OrderByDescending(c => c.Score).FirstOrDefault();
 
             if (bestCandidate == null || bestCandidate.Score <= 0)
@@ -639,7 +639,7 @@ namespace FormAutomation
                     bestCandidate.Element, value);
             }
 
-            // Step 5: Post-action validation - inspect input value attribute after typing
+            // Post-action validation - inspect input value attribute after typing
             string actualValue = bestCandidate.Element.GetAttribute("value") ??
                                  bestCandidate.Element.GetDomProperty("value") ?? "";
 
@@ -663,13 +663,13 @@ namespace FormAutomation
         }
 
         /// <summary>
-        /// Step 4 & 5: Resiliently finds and selects the Gender radio button, then verifies Selected state.
+        /// Resiliently finds and selects the Gender radio button, then verifies Selected state.
         /// </summary>
         public static bool SelectGender(IWebDriver driver, string gender)
         {
             Console.WriteLine($"---> [ACTION] SelectGender(driver, \"{gender}\")");
 
-            // Step 4: Retrieve all relevant radio candidate elements
+            // Retrieve all relevant radio candidate elements
             var allInputs = driver.FindElements(By.TagName("input"));
             var candidates = ExtractAllCandidatesFast(driver, "input", allInputs);
             var radioCandidates = candidates.Where(c => c.Type == "radio").ToList();
@@ -679,7 +679,7 @@ namespace FormAutomation
             string targetWord = gender.Trim().ToLowerInvariant();
             string wordPattern = $@"\b{Regex.Escape(targetWord)}\b";
 
-            // Step 4: Score each candidate element based on heuristic match criteria
+            // Score each candidate element based on heuristic match criteria
             foreach (var c in radioCandidates)
             {
                 int score = 0;
@@ -723,7 +723,7 @@ namespace FormAutomation
                 c.Score = score;
             }
 
-            // Step 4: Select and use the candidate element with the highest score
+            // Select and use the candidate element with the highest score
             var bestCandidate = radioCandidates.OrderByDescending(c => c.Score).FirstOrDefault();
 
             if (bestCandidate == null || bestCandidate.Score <= 0)
@@ -748,7 +748,7 @@ namespace FormAutomation
                 ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", bestCandidate.Element);
             }
 
-            // Step 5: Post-action validation - verify radio button selection state
+            // Post-action validation - verify radio button selection state
             bool isSelected = bestCandidate.Element.Selected ||
                               (bestCandidate.Element.GetDomProperty("checked")?.ToString()?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false) ||
                               bestCandidate.Element.GetAttribute("checked") != null;
@@ -770,20 +770,20 @@ namespace FormAutomation
         }
 
         /// <summary>
-        /// Step 4 & 5: Resiliently finds and selects the State dropdown, then verifies selected text.
+        /// Resiliently finds and selects the State dropdown, then verifies selected text.
         /// Supports standard HTML select as well as custom dropdowns.
         /// </summary>
         public static bool SelectState(IWebDriver driver, string state)
         {
             Console.WriteLine($"---> [ACTION] SelectState(driver, \"{state}\")");
 
-            // Step 4: Retrieve all select candidate elements
+            // Retrieve all select candidate elements
             var allSelects = driver.FindElements(By.TagName("select"));
             var candidates = ExtractAllCandidatesFast(driver, "select", allSelects);
 
             Console.WriteLine($"     Discovered {candidates.Count} candidate <select> element(s). Calculating heuristic scores for State: \"{state}\"...");
 
-            // Step 4: Score each candidate element based on heuristic match criteria
+            // Score each candidate element based on heuristic match criteria
             foreach (var c in candidates)
             {
                 int score = 0;
@@ -825,7 +825,7 @@ namespace FormAutomation
                 c.Score = score;
             }
 
-            // Step 4: Select and use the candidate element with the highest score
+            // Select and use the candidate element with the highest score
             var bestCandidate = candidates.OrderByDescending(c => c.Score).FirstOrDefault();
 
             if (bestCandidate != null && bestCandidate.Score > 0)
@@ -882,7 +882,7 @@ namespace FormAutomation
                         "}", bestCandidate.Element, state);
                 }
 
-                // Step 5: Post-action validation - inspect selected option text after dropdown selection
+                // Post-action validation - inspect selected option text after dropdown selection
                 string selectedText = "";
                 try
                 {
